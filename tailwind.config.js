@@ -9,6 +9,7 @@ export default {
       "blue-dark": "#263238",
       "blue-light": "#ebf5f0",
       "slate-light": "#e2e8f0",
+      "red-light": "#f87979",
     },
     extend: {
       height: {

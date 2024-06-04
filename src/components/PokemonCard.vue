@@ -4,22 +4,13 @@
     :class="{ 'bg-slate-light': props.pokemon.selected }"
     @click="props.selectPokemon(props.pokemon)"
   >
-    <div class="container mx-auto flex justify-center">
-      <img
-        :src="props.pokemon.image"
-        :alt="props.pokemon.name"
-        loading="lazy"
-      />
-    </div>
-    <div class="px-4 pt-1 pb-4 flex justify-center">
-      <Chip :label="props.pokemon.name" />
-    </div>
+    <PokemonData :image="props.pokemon.image" :name="props.pokemon.name" />
   </div>
 </template>
 <script lang="ts" setup>
 import { defineProps } from "vue";
 import { Pokemon } from "../interfaces/Pokemon";
-import Chip from "./Chip.vue";
+import PokemonData from "./PokemonData.vue";
 const props = defineProps({
   pokemon: {
     type: Object as () => Pokemon,

@@ -20,5 +20,20 @@ export interface PokemonTeam {
   height: number;
   weight: number;
   description?: string;
-  //evolutionChain
+  evolutionChain: Array<EvolutionChain>;
+}
+
+export interface EvolutionChain {
+  name: string;
+  image: string;
+}
+
+export interface FlavorTextEntires {
+  flavor_text: string;
+  language: Language;
+}
+
+interface Language {
+  name: string;
+  url: string;
 }

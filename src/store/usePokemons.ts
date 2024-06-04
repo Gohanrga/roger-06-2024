@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { Pokemon } from "../interfaces/Pokemon";
 import ApiService from "../services/ApiService";
 import { verifyExistence } from "../tools/ArrayTool";
-
+import { URL_POKEMON, URL_IMAGE } from "../constant";
 const apiService = new ApiService();
 
 type State = {
@@ -33,8 +33,8 @@ const usePokemonsStore = defineStore("pokemons", {
   actions: {
     async fetchPokemons(): Promise<void> {
       const limit = 151;
-      const URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}`;
-      const URL_IMAGE = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/`;
+      const URL = URL_POKEMON + limit;
+
       const response = await apiService.get(URL);
       if (response?.status === 200) {
         const { results } = response.data;
