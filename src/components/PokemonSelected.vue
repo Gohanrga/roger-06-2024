@@ -1,7 +1,12 @@
 <template>
-  <div class="flex justify-center gap-1" v-if="props.pokemonSelected.length">
-    <div v-for="pokemon in props.pokemonSelected" :key="pokemon.id">
-      <Chip :label="pokemon.name" />
+  <div class="flex flex-col items-center" v-if="props.pokemonSelected.length">
+    <div>
+      <span>Pokemons Seleccionados: {{ props.pokemonSelected.length }}</span>
+    </div>
+    <div class="flex justify-center gap-2">
+      <div v-for="pokemon in props.pokemonSelected" :key="pokemon.id">
+        <Chip :label="pokemon.name" />
+      </div>
     </div>
   </div>
   <div v-else class="flex justify-center">

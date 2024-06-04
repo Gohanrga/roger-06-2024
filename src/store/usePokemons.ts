@@ -7,7 +7,7 @@ const apiService = new ApiService();
 
 type State = {
   storePokemons: Array<Pokemon>;
-  storeTeamPokemon: Array<Pokemon>;
+  storePokemonSelected: Array<Pokemon>;
   nextOffset: number;
   limit: number;
 };
@@ -15,7 +15,7 @@ type State = {
 const usePokemonsStore = defineStore("pokemons", {
   state: (): State => ({
     storePokemons: [],
-    storeTeamPokemon: [],
+    storePokemonSelected: [],
     nextOffset: 0,
     limit: 25,
   }),
@@ -25,7 +25,7 @@ const usePokemonsStore = defineStore("pokemons", {
         state.nextOffset,
         state.nextOffset + state.limit
       ),
-    pokemonSelected: (state): Array<Pokemon> => state.storeTeamPokemon,
+    pokemonSelected: (state): Array<Pokemon> => state.storePokemonSelected,
     limitArray: (state): number => state.limit,
     nextOffsetArray: (state): number => state.nextOffset,
     totalPokemons: (state): number => state.storePokemons.length,
@@ -39,13 +39,19 @@ const usePokemonsStore = defineStore("pokemons", {
       if (response?.status === 200) {
         const { results } = response.data;
         this.storePokemons = results.map(
-          (pokemon: { url: string; name: any }) => {
+          (pokemon: { url: string; name: string }) => {
             const id = Number(pokemon.url.split("/").filter(Boolean).pop());
+            //check if the pokemon is selected
+            const isSelected = this.storePokemonSelected.some(
+              (pokemon) => pokemon.id === id
+            );
+
             return {
               id,
               name: pokemon.name,
+              url: pokemon.url,
               image: URL_IMAGE + `${id}.png`,
-              selected: false,
+              selected: isSelected,
             };
           }
         );
@@ -68,8 +74,8 @@ const usePokemonsStore = defineStore("pokemons", {
     //end navigation
     addToTeam(pokemon: Pokemon): void {
       //if not exist we should add
-      if (this.storeTeamPokemon.length < 6) {
-        this.storeTeamPokemon.push(pokemon);
+      if (this.storePokemonSelected.length < 6) {
+        this.storePokemonSelected.push(pokemon);
         this.markPokemon(pokemon.id);
       }
     },
@@ -79,8 +85,8 @@ const usePokemonsStore = defineStore("pokemons", {
      * @returns boolean
      */
     removeToTeam(pokemonId: number): void {
-      if (verifyExistence(pokemonId, this.storeTeamPokemon)) {
-        this.storeTeamPokemon = this.storeTeamPokemon.filter(
+      if (verifyExistence(pokemonId, this.storePokemonSelected)) {
+        this.storePokemonSelected = this.storePokemonSelected.filter(
           (p) => p.id !== pokemonId
         );
         this.markPokemon(pokemonId);

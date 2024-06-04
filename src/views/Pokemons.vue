@@ -2,11 +2,9 @@
   <div class="my-4">
     <PokemonSelected :pokemonSelected="pokemonSelected" />
   </div>
-  <div class="flex justify-center">
-    <div class="grid grid-cols-5 gap-4 mt-5 mb-10">
-      <div v-for="pokemon in pokemons" :key="pokemon.id">
-        <PokemonCard :pokemon="pokemon" :selectPokemon="selectPokemon" />
-      </div>
+  <div class="flex justify-center flex-wrap mt-5 mb-16 gap-10">
+    <div v-for="pokemon in pokemons" :key="pokemon.id">
+      <PokemonCard :pokemon="pokemon" :selectPokemon="selectPokemon" />
     </div>
   </div>
   <div class="pb-10">
