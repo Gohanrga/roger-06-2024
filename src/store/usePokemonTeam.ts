@@ -53,7 +53,6 @@ const usePokemonTeamStore = defineStore("pokemonTeam", {
             const speciesData = await this.fetchSpecieData(speciesUrl);
             pokemonData.description = speciesData.description;
             pokemonData.evolutionChain = speciesData.evolutionChain;
-            console.log(pokemonData);
           }
           return pokemonData;
         })

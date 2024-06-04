@@ -23,6 +23,10 @@ const routes: Array<RouteRecordRaw> = [
         name: "detail",
         component: () => import("../views/PokemonDetail.vue"),
       },
+      {
+        path: "/:pathMatch(.*)*",
+        redirect: { name: "home" },
+      },
     ],
   },
 ];
